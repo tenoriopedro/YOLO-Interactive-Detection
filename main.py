@@ -8,9 +8,9 @@ from database.data_database import DataGet
 from add_object_info import COCO_CLASSES_PT
 
 # Init database
+get_data = DataGet()
 info_data = InfoData()
 detectable_objects = info_data.get_detectable_objects()
-get_data = DataGet()
 
 
 # UI ui_state management
