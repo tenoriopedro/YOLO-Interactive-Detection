@@ -19,6 +19,8 @@ class DataGet:
 
     def __init__(self):
         
+        self._create_database()
+
         # Establish database connection on initialization
         self.connection_db = mysql.connector.connect(
         host='localhost',
