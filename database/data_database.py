@@ -27,9 +27,24 @@ class DataGet:
         database=DB_NAME
         )
 
-        self.create_table_get()
+        self._create_table_get()
 
-    def create_table_get(self):
+    def _create_database(self):
+        conn = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password=os.getenv("PASSWORD_DB"),
+        )
+
+        cursor = conn.cursor()
+        cursor.execute(
+            f'CREATE DATABASE IF NOT EXISTS {DB_NAME} '
+            )
+
+        conn.commit()
+        cursor.close()
+
+    def _create_table_get(self):
         connection = self.connection_db
         cursor = connection.cursor()
 
