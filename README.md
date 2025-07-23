@@ -53,8 +53,8 @@ This project is a **real-time object detection application using YOLOv8**, featu
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/seu-usuario/YOLO-Interactive-Object-Recognition.git
-cd YOLO-Interactive-Object-Recognition
+git clone https://github.com/tenoriopedro/YOLO-Interactive-Detection.git
+cd YOLO-Interactive-Detection
 ```
 
 ### 2. Create and activate a virtual environment
