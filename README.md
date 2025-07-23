@@ -75,6 +75,10 @@ pip install -r requirements.txt
 
 - In the project there is a folder named `dotenv_files` there will be a `.env-example`. Copy this file with the name `.env` and inside it put your MySQL password.
 
+```bash
+copy dotenv_files/.env-example dotenv_files/.env
+```
+
 - Create the database_detect database with read and write permissions.
 
 - Configure credentials in the data_database.py file.
