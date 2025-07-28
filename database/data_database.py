@@ -117,6 +117,30 @@ class DataGet:
         cursor.close()
 
         return data
+    
+    def show_data_today(self):
+        # Shows the data that was captured that day
+
+        conn = self.connection_db
+        cursor = conn.cursor()
+
+        today_str = datetime.now().strftime('%Y-%m-%d')
+
+        query = f"""
+        SELECT * FROM {TABLE_NAME} 
+        WHERE date_detect LIKE %s
+        """
+
+        like_pattern = f"{today_str}%"
+
+        cursor.execute(query,(like_pattern,))
+        results = cursor.fetchall()
+
+        data = [[obj, date] for obj, date in results]
+
+        cursor.close()
+
+        return data
 
     def close_connection(self):
         if self.connection_db.is_connected():

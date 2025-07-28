@@ -23,8 +23,8 @@ ui_state = {
     'cursor_over_link03': False
 }
 
-# Select webcam (0 = built-in, 3 = OBS virtual camera)
-cap = cv2.VideoCapture(0)
+# Select webcam (0 = built-in, 2 = OBS virtual camera)
+cap = cv2.VideoCapture(2)
 frame_width = 640
 frame_height = 480
 cap.set(3, frame_width)
@@ -143,6 +143,14 @@ while True:
         
         break
 
+print("\n\n\n")
+# Show data that has benn collected
+show_results = get_data.show_data_today()
+
+for data in show_results:
+    print(data)
+
+# Closing All Connections
 info_data.close_connection()
 get_data.close_connection()
 print("\n\nProgram finished.\n\n")
