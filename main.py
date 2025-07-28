@@ -22,9 +22,10 @@ ui_state = {
     'cursor_over_link02': False,
     'cursor_over_link03': False
 }
-
 # Select webcam (0 = built-in, 2 = OBS virtual camera)
-cap = cv2.VideoCapture(2)
+VIDEO_SOURCE = 2
+
+cap = cv2.VideoCapture(VIDEO_SOURCE)
 frame_width = 640
 frame_height = 480
 cap.set(3, frame_width)
@@ -55,6 +56,10 @@ COLOR_LINK = (255, 255, 255)
 last_frame = None
 link_dict = None
 
+# Flip mode
+FLIP_MODE = True if VIDEO_SOURCE == 0 else False
+
+
 while True:
     if not ui_state['pause_stream']:
         sucess, frame = cap.read()
@@ -65,8 +70,9 @@ while True:
     else:
         frame = last_frame.copy()
 
-    # tirar efeito de espelho(se necessário)
-    frame = cv2.flip(frame, 1)
+    if FLIP_MODE:
+        # activate mirror mode only for Webcam
+        frame = cv2.flip(frame, 1)
 
     results = model(frame)
 
@@ -145,10 +151,11 @@ while True:
 
 print("\n\n\n")
 # Show data that has benn collected
-show_results = get_data.show_data_today()
+show_results_today = get_data.show_data_today()
 
-for data in show_results:
-    print(data)
+print("Object detections from today:")
+for obj, dt in show_results_today:
+    print(f"- {obj} at {dt}")
 
 # Closing All Connections
 info_data.close_connection()
