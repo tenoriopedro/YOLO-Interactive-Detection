@@ -4,15 +4,9 @@ This project is a **real-time object detection application using YOLOv8**, featu
 
 ---
 
-<!-- ## 📸 Demonstração
-
-> *Um exemplo visual pode ser adicionado aqui, como um GIF curto ou imagem da aplicação em execução.* -->
-
----
-
 ## 📸 Features
 
-- Detects objects using the webcam and the YOLOv8 model (`ultralytics`).
+- Detects objects using the webcam or external video sources.
 - Displays a **clickable circle** on screen that opens an **interactive popup** showing:
   - Object name
   - Description
@@ -108,6 +102,19 @@ python main.py
 ### 🛡️ Security and Best Practices
 
 - Make sure to keep your database credentials outside of the repository (e.g., use .env).
+
+
+# 🧠 Use Cases
+
+- Real-time surveillance and smart monitoring
+
+- Interactive installations (e.g., museums or advertising)
+
+- TV/video stream annotation (via HDMI capture)
+
+- Educational tools for AI and computer vision
+
+- Dataset generation with time-stamped logging
 
 
 ### 👨‍💻 Author
