@@ -132,15 +132,6 @@ while True:
                 # salvando dados a base de dados
                 get_data.save_in_database(object_name)
 
-                print()
-                print()
-                print()
-                print(popup_area)
-                print()
-                print()
-                print()
-                print()
-
 
     cv2.imshow("Video Test", frame)
     cv2.setMouseCallback(
