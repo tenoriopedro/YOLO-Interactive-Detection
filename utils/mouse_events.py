@@ -7,11 +7,38 @@ def mouse_event(event, x, y, flags, params):
     try:
         circle_x1, circle_y1, radius = circle_info
 
+        # Organizing clickable text areas
+        areas_by_index = {}
+        if clickable_areas:
+            for i, area in enumerate(clickable_areas):
+                areas_by_index[f"area_{i+1}"] = area
+
         # Handle click on circle (toggle popup and pause)
         if event == cv2.EVENT_LBUTTONDOWN:
+            
+            # Check if user clicked inside the circle 
+            clicked_circle = (x - circle_x1) ** 2 + (y - circle_y1) ** 2 <= radius ** 2
 
-            if (x - circle_x1) ** 2 + (y - circle_y1) ** 2 <= radius ** 2:
+            # Check if user clicked inside any clickable popup area
+            clicked_popup_area = False
+            for area in areas_by_index.values():
+                x1, y1, x2, y2 = area
 
+                if x1 <= x <= x2 and y1 <= y <= y2:
+                    clicked_popup_area = True
+                    break
+            
+            # If popup is open and user clicks OUTSIDE 
+            # Of both circle and popup links, close popup
+            if ui_state['circle_clicked'] and not clicked_circle and not clicked_popup_area:
+                    ui_state['pause_stream'] = False
+                    ui_state['circle_clicked'] = False
+                    ui_state['popup_opening'] = False
+
+                    return # early return to avoid further checks
+
+            # If user clicks on the circle (toggle popup)
+            if clicked_circle:
                 if not ui_state['circle_clicked']:
                     ui_state['circle_clicked'] = True
                     ui_state['popup_opening'] = True
@@ -22,11 +49,6 @@ def mouse_event(event, x, y, flags, params):
                     ui_state['circle_clicked'] = False
                     ui_state['popup_opening'] = False
 
-        # Organizing clickable text areas
-        areas_by_index = {}
-        if clickable_areas:
-            for i, area in enumerate(clickable_areas):
-                areas_by_index[f"area_{i+1}"] = area
 
         # Handle clicks and hover on individual object links
         if ui_state['circle_clicked']:

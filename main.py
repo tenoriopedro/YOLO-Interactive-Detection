@@ -23,7 +23,7 @@ ui_state = {
     'cursor_over_link03': False
 }
 # Select webcam (0 = built-in, 2 = OBS virtual camera)
-VIDEO_SOURCE = 2
+VIDEO_SOURCE = 0
 
 cap = cv2.VideoCapture(VIDEO_SOURCE)
 frame_width = 640
@@ -38,7 +38,7 @@ cap.set(4, frame_height)
 popup_height = 0
 popup_max_height = frame_height - 100
 popup_min_height = 0
-popup_animation_speed = 40
+popup_animation_speed = 50
 
 # Model
 model = YOLO("YOLOWeights/yolov8n.pt")
