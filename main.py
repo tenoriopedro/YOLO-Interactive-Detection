@@ -52,9 +52,10 @@ COLOR_TEXT_LINE = (255, 255, 255)
 COLOR_CIRCLE = (34, 34, 174)
 COLOR_LINK = (255, 255, 255)
 
-# Frame and link storage
+# Frame, link and popup_area storage
 last_frame = None
 link_dict = None
+popup_area = None
 
 # Flip mode
 FLIP_MODE = True if VIDEO_SOURCE == 0 else False
@@ -118,7 +119,7 @@ while True:
 
                 # Show popup if circle is clicked
                 if ui_state['circle_clicked']:
-                    frame, clickable_areas, link_dict = draw_popup(
+                    frame, clickable_areas, link_dict, popup_area = draw_popup(
                         frame,
                         frame_width,
                         popup_height,
@@ -131,6 +132,15 @@ while True:
                 # salvando dados a base de dados
                 get_data.save_in_database(object_name)
 
+                print()
+                print()
+                print()
+                print(popup_area)
+                print()
+                print()
+                print()
+                print()
+
 
     cv2.imshow("Video Test", frame)
     cv2.setMouseCallback(
@@ -142,6 +152,7 @@ while True:
             clickable_areas,
             detected_objects,
             link_dict,
+            popup_area,
         )
     )
 

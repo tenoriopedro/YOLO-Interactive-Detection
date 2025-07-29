@@ -22,6 +22,11 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
     draw = ImageDraw.Draw(pil_image)
     draw.rectangle([popup_x, popup_y, popup_x + popup_width, popup_y + popup_height], fill=(255, 255, 255))
 
+    # Saving the entire popup area
+    popup_area = (
+        popup_x, popup_y, popup_x + popup_width, popup_y + popup_height
+    )
+
     font = ImageFont.truetype(font_path, font_size)
 
     # Load info from database
@@ -108,7 +113,7 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
         y2 = pos_y + 25
         click_areas.append((x1, y1, x2, y2))
 
-    return frame_bgr, click_areas, link_dict
+    return frame_bgr, click_areas, link_dict, popup_area
 
 
 
