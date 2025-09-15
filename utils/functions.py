@@ -6,8 +6,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Important functions for code operation
-def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_link01, cursor_over_link02, cursor_over_link03):
+def draw_popup(
+        frame, frame_width, popup_height, detected_objects,
+        cursor_over_link01, cursor_over_link02, cursor_over_link03):
 
     font_size = 15
     font_path = BASE_DIR / 'font/arial.ttf'
@@ -20,7 +23,9 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
     popup_x, popup_y = 30, 60
     popup_width = frame_width / 2
     draw = ImageDraw.Draw(pil_image)
-    draw.rectangle([popup_x, popup_y, popup_x + popup_width, popup_y + popup_height], fill=(255, 255, 255))
+    draw.rectangle(
+        [popup_x, popup_y, popup_x + popup_width, popup_y + popup_height],
+        fill=(255, 255, 255))
 
     # Saving the entire popup area
     popup_area = (
@@ -44,7 +49,7 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
 
             if obj_name in entry:
                 object_label, description, link = entry
-        
+
                 link_dict[obj_name] = link
 
                 info_texts = [
@@ -55,7 +60,7 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
 
                 # Check if any text exceeds the popup width
                 formatted_texts = wrap_text_to_fit(
-                    info_texts, 
+                    info_texts,
                     popup_width,
                     font,
                     draw
@@ -65,8 +70,8 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
 
                     draw.text(
                         (popup_x + 10, popup_y + 20 + i * 30),
-                        line, 
-                        font=font, 
+                        line,
+                        font=font,
                         fill=(0, 0, 0)
                     )
                     last_text_y = popup_y + 20 + i * 30
@@ -79,12 +84,11 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
                     [
                         (popup_x + 10, popup_y + 30),
                         (popup_x + popup_width - 10, popup_y + 30)
-                    ], 
-                    fill=(0,0,0),
+                    ],
+                    fill=(0, 0, 0),
                     width=3
                 )
                 popup_y += 40
-
 
     # Convert image back to OpenCV BGR format
     frame_bgr = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
@@ -92,7 +96,9 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
     # # Draw underline for link on hover
     for i, pos_y in enumerate(link_positions):
 
-        hover = [cursor_over_link01, cursor_over_link02, cursor_over_link03][i] if i < 3 else False
+        hover = [
+            cursor_over_link01, cursor_over_link02, cursor_over_link03
+        ][i] if i < 3 else False
         thickness = 2 if hover else 1
 
         # Line position
@@ -116,7 +122,6 @@ def draw_popup(frame, frame_width, popup_height, detected_objects, cursor_over_l
     return frame_bgr, click_areas, link_dict, popup_area
 
 
-
 def wrap_text_to_fit(text_list, max_width, font, draw):
     # Breaks lines to ensure text fits inside the popup width.
 
@@ -127,10 +132,10 @@ def wrap_text_to_fit(text_list, max_width, font, draw):
         current_line = ""
 
         for word in words:
-            
+
             line_width = draw.textbbox(
-                (0, 0), 
-                current_line + word + ' ', 
+                (0, 0),
+                current_line + word + ' ',
                 font=font)[2]
 
             if line_width > max_width - 60:

@@ -1,20 +1,19 @@
-#### Modulo para buscar informações do banco de dados
-
-from .data_database import DataGet
+# Modulo para buscar informações do banco de dados
 import os
 import mysql.connector
 
 DB_NAME = "database_detect"
 TABLE_NAME_INFO = "info_object"
 
+
 class InfoData:
-    
+
     def __init__(self):
         self.connection_db = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password=os.getenv('PASSWORD_DB'),
-        database=DB_NAME
+            host='localhost',
+            user='root',
+            password=os.getenv('PASSWORD_DB'),
+            database=DB_NAME
         )
 
         self.create_database_info()
@@ -40,23 +39,25 @@ class InfoData:
 
         cursor.close()
 
-    def insert_into_database(self, object_detect, description_object, link_object):
+    def insert_into_database(
+            self, object_detect, description_object, link_object):
 
         conn = self.connection_db
         cursor = conn.cursor()
 
         sql = f'''
-        INSERT INTO {TABLE_NAME_INFO} (object_detect, description_object, link_object) VALUES (%s, %s, %s)
+        INSERT INTO {TABLE_NAME_INFO}
+        (object_detect, description_object, link_object)
+        VALUES (%s, %s, %s)
         '''
 
-        cursor.execute(sql,(object_detect, description_object, link_object))
+        cursor.execute(sql, (object_detect, description_object, link_object))
         conn.commit()
 
         cursor.close()
 
-
     def get_info(self):
-        
+
         conn = self.connection_db
         cursor = conn.cursor()
 
@@ -76,9 +77,8 @@ class InfoData:
 
         return list_data
 
-
     def get_detectable_objects(self):
-        
+
         conn = self.connection_db
         cursor = conn.cursor()
 
@@ -89,7 +89,6 @@ class InfoData:
         cursor.close()
 
         return [row[0] for row in results] or ["pessoa", "telemóvel"]
-    
 
     def insert_default_objects(self):
 
@@ -102,13 +101,13 @@ class InfoData:
 
         default_objects = [
             (
-                "pessoa", 
-                "Uma pessoa qualquer foi detectada.", 
+                "pessoa",
+                "Uma pessoa qualquer foi detectada.",
                 "https://pt.wikipedia.org/wiki/Pessoa"
             ),
             (
-                "telemóvel", 
-                "Não sei a marca deste telemóvel.", 
+                "telemóvel",
+                "Não sei a marca deste telemóvel.",
                 "https://pt.wikipedia.org/wiki/Telefone_celular"
             )
         ]
@@ -117,8 +116,8 @@ class InfoData:
             if obj not in existing_objects:
                 cursor.execute(
                     f"""
-                    INSERT INTO {TABLE_NAME_INFO} 
-                    (object_detect, description_object, link_object) 
+                    INSERT INTO {TABLE_NAME_INFO}
+                    (object_detect, description_object, link_object)
                     VALUES (%s, %s, %s)
                     """,
                     (obj, desc, link)

@@ -96,10 +96,15 @@ while True:
             class_id = int(box.cls[0])
 
             # Only detect specific objects with confidence > 0.5
-            if confidence > 0.5 and class_names[class_id] in detectable_objects:
+            if confidence > 0.5 and (
+                    class_names[class_id] in detectable_objects):
 
                 # Draw clickable circle
-                cv2.circle(frame, (circle_x, circle_y), circle_radius, COLOR_CIRCLE, circle_thickness)
+                cv2.circle(
+                    frame, (circle_x, circle_y),
+                    circle_radius, COLOR_CIRCLE,
+                    circle_thickness
+                )
                 circle_info = [circle_x, circle_y, circle_radius]
 
                 # Store detected object name
@@ -107,12 +112,16 @@ while True:
                 detected_objects.append(object_name)
 
                 # Animate popup height
-                if ui_state['popup_opening'] and popup_height < popup_max_height:
+                if ui_state['popup_opening'] and (
+                        popup_height < popup_max_height):
+
                     popup_height += popup_animation_speed
                     if popup_height >= popup_max_height:
                         popup_height = popup_max_height
 
-                if not ui_state['popup_opening'] and popup_height > popup_min_height:
+                if not ui_state['popup_opening'] and (
+                        popup_height > popup_min_height):
+
                     popup_height -= popup_animation_speed
                     if popup_height <= popup_min_height:
                         popup_height = popup_min_height
@@ -132,14 +141,13 @@ while True:
                 # salvando dados a base de dados
                 get_data.save_in_database(object_name)
 
-
     cv2.imshow("Video Test", frame)
     cv2.setMouseCallback(
-        "Video Test", 
-        mouse_event, 
+        "Video Test",
+        mouse_event,
         param=(
-            ui_state, 
-            circle_info, 
+            ui_state,
+            circle_info,
             clickable_areas,
             detected_objects,
             link_dict,
@@ -148,7 +156,7 @@ while True:
     )
 
     if cv2.waitKey(5) & 0xFF == ord('q'):
-        
+
         break
 
 print("\n\n\n")
