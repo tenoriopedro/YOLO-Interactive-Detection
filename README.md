@@ -1,8 +1,8 @@
 # Sistema de Deteção de Objetos com YOLOv8 e MySQL
 
-<!-- <p align="center">
-  <img src="[NOME_DO_SEU_GIF_AQUI.gif]" alt="Demonstração do Sistema de Deteção YOLOv8" width="700"/>
-</p> -->
+<p align="center">
+  <img src="https://github.com/tenoriopedro/YOLO-Interactive-Detection/blob/main/object_detection.gif?raw=true" alt="Demonstração do Sistema de Deteção YOLOv8" width="700"/>
+</p>
 
 ---
 
