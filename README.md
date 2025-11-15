@@ -1,123 +1,77 @@
-# Object Detection System with YOLOv8 and MySQL Database
+# Sistema de Deteção de Objetos com YOLOv8 e MySQL
 
-This project is a **real-time object detection application using YOLOv8**, featuring an interactive OpenCV interface and a **MySQL database** to store and describe detected objects.
-
----
-
-## 📸 Features
-
-- Detects objects using the webcam or external video sources.
-- Displays a **clickable circle** on screen that opens an **interactive popup** showing:
-  - Object name
-  - Description
-  - Clickable link for more information
-- Saves detection data (object + date/time) to a database.
-- Allows manually adding custom objects with descriptions and links.
-- Visual interface with OpenCV and mouse interaction.
+<!-- <p align="center">
+  <img src="[NOME_DO_SEU_GIF_AQUI.gif]" alt="Demonstração do Sistema de Deteção YOLOv8" width="700"/>
+</p> -->
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## 🚀 Visão Geral
 
-- Python 3.11
-- OpenCV
-- YOLOv8 
-- MySQL
-- PIL (Pillow)
-- dotenv
+Este projeto é uma aplicação de **deteção de objetos em tempo real** que usa **YOLOv8** e **OpenCV**. O sistema identifica objetos via webcam e apresenta um **popup interativo** com informações (nome, descrição, link) guardadas numa **base de dados MySQL**.
 
+A interface permite interações do rato, tornando-a uma ferramenta poderosa para demonstrações de IA, vigilância ou aplicações educacionais.
 
 ---
 
-## 📂 Organização do projeto
+### 🛠️ Stack Tecnológico
 
-- **main.py**: Main application logic
-- **database/**: MySQL connection and data manipulation modules
-- **utils/**: Auxiliary functions, graphical interactions, and mouse events
-- **YOLOWeights/**: Trained models (YOLOv8 in `.pt` and `.onnx`)
-- **font/**: Font used in the information popup
-- **requirements.txt**: Required libraries
-- **add_object_info.py**: File that adds more objects to the application
+* **Python 3.11**
+* **Computer Vision:** YOLOv8, OpenCV, PIL (Pillow)
+* **Base de Dados:** MySQL
+* **Outros:** `dotenv` (para gestão de credenciais)
 
 ---
 
-## ⚙️ How to execute the project
+### 💡 Casos de Uso Principais
 
+* Vigilância e monitorização inteligente em tempo real.
+* Instalações interativas (ex: museus ou publicidade).
+* Anotação de streams de vídeo (via captura HDMI).
+* Ferramenta educacional para IA e Visão Computacional.
+* Geração de *datasets* com *logs* de data/hora.
 
-### 1. Clone the repository
+---
 
-```bash
-git clone https://github.com/tenoriopedro/YOLO-Interactive-Detection.git
-cd YOLO-Interactive-Detection
-```
+### ⚙️ Detalhes Técnicos e Instalação (Local)
 
-### 2. Create and activate a virtual environment
+<details>
+  <summary>
+    <strong>[+] Clique para expandir</strong> (Instruções de setup, Lógica de Operação, etc.)
+  </summary>
 
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-```
+  <h4>1. Como Executar</h4>
 
-### 3. Install dependencies
+  <ol>
+    <li>Clone o repositório.</li>
+    <li>Crie e ative um ambiente virtual (<code>python -m venv venv</code>).</li>
+    <li>Instale as dependências: <code>pip install -r requirements.txt</code></li>
+    <li>
+      <strong>Configure as Credenciais do MySQL:</strong>
+      <ul>
+        <li>Copie <code>dotenv_files/.env-example</code> para <code>dotenv_files/.env</code>.</li>
+        <li>Insira a sua palavra-passe do MySQL (o utilizador precisa de permissão para <code>CREATE DATABASE</code>) no ficheiro <code>.env</code>.</li>
+        <li><strong>Não é necessário criar a base de dados ou tabelas manualmente.</strong> O script trata de todo o setup na primeira execução.</li>
+      </ul>
+    </li>
+    <li>Execute o programa: <code>python main.py</code></li>
+  </ol>
 
-```bash
-pip install -r requirements.txt
-```
+  <h4>2. Lógica de Operação</h4>
+  <ul>
+    <li>A webcam é ativada e cada frame é analisado pelo YOLOv8.</li>
+    <li>Se um objeto predefinido for detetado, um círculo aparece no ecrã.</li>
+    <li>Clicar no círculo exibe um popup animado com informação da base de dados.</li>
+    <li>Todas as deteções são registadas na base de dados com data/hora.</li>
+  </ul>
+  
+  <h4>3. Adicionar Novos Objetos</h4>
+  <ul>
+    <li>O sistema deteta dois objetos por defeito. Para adicionar mais, use o script <code>add_object_info.py</code>.</li>
+  </ul>
+</details>
 
-### 4. Configure the MySQL database
+---
 
-- In the project there is a folder named `dotenv_files` there will be a `.env-example`. Copy this file with the name `.env` and inside it put your MySQL password.
-
-```bash
-copy dotenv_files/.env-example dotenv_files/.env
-```
-
-- Create the database_detect database with read and write permissions.
-
-- Configure credentials in the data_database.py file.
-
-- When starting the system, the necessary tables will be created automatically.
-
-- Two objects are detected by default in the application. But you can add more with the add_object_info.py file.
-
-### 5. Run the program
-
-```bash
-python main.py
-```
-
-### 🧠 Operating Logic
-
-- The webcam is activated, and each frame is analyzed by a YOLOv8 model.
-
-- If a predefined object is detected, a circle appears in the corner of the screen.
-
-- Clicking the circle displays an animated pop-up displaying detailed information about the object.
-
-- Informational links are clickable and open in the browser.
-
-- All detections are recorded in a database with the date and time.
-
-### 🛡️ Security and Best Practices
-
-- Make sure to keep your database credentials outside of the repository (e.g., use .env).
-
-
-# 🧠 Use Cases
-
-- Real-time surveillance and smart monitoring
-
-- Interactive installations (e.g., museums or advertising)
-
-- TV/video stream annotation (via HDMI capture)
-
-- Educational tools for AI and computer vision
-
-- Dataset generation with time-stamped logging
-
-
-### 👨‍💻 Author
-
+### 👨‍💻 Autor
 Pedro Tenório
-Python Developer | Computer Vision | Artificial Intelligence
