@@ -1,8 +1,7 @@
 .vscode
 kernel.errors.txt
-/YOLOWeights/
-/images/
-convert_model.py
+/assets/models
+/assets/images
 
 # Default ignored files
 /shelf/

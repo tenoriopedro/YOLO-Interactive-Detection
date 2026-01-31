@@ -3,8 +3,8 @@ import math
 from ultralytics import YOLO
 from utils.functions import draw_popup
 from utils.mouse_events import mouse_event
-from database.info_database import InfoData
-from database.data_database import DataGet
+from yolo_detector.database.operations import InfoData
+from yolo_detector.database.connection import DataGet
 from add_object_info import COCO_CLASSES_PT
 
 # Init database

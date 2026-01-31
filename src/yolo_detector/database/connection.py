@@ -1,51 +1,48 @@
-# Criação da tabela "object_detect" na base de dados database_detect ##
 import os
+from datetime import datetime
 from pathlib import Path
+
 import dotenv
 import mysql.connector
-from datetime import datetime
+
+from yolo_detector.config import DB_HOST, DB_USER, DB_PASSWORD
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-DOTENV_PATH = BASE_DIR / 'dotenv_files/.env'
-
-DB_NAME = 'database_detect'
-TABLE_NAME = 'object_detect'
-
-dotenv.load_dotenv(DOTENV_PATH)
+DB_NAME = "database_detect"
+TABLE_NAME = "object_detect"
 
 
-class DataGet:
+class DetectionStorage:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._create_database()
 
         # Establish database connection on initialization
         self.connection_db = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password=os.getenv('PASSWORD_DB'),
+            host="localhost",
+            user="root",
+            password=os.getenv("PASSWORD_DB"),
             database=DB_NAME
         )
 
         self._create_table_get()
 
-    def _create_database(self):
+    def _create_database(self) -> None:
         conn = mysql.connector.connect(
-            host='localhost',
-            user='root',
+            host="localhost",
+            user="root",
             password=os.getenv("PASSWORD_DB"),
         )
 
         cursor = conn.cursor()
         cursor.execute(
-            f'CREATE DATABASE IF NOT EXISTS {DB_NAME} '
+            f"CREATE DATABASE IF NOT EXISTS {DB_NAME} "
         )
 
         conn.commit()
         cursor.close()
 
-    def _create_table_get(self):
+    def _create_table_get(self) -> None:
         connection = self.connection_db
         cursor = connection.cursor()
 
@@ -104,7 +101,7 @@ class DataGet:
         conn = self.connection_db
         cursor = conn.cursor()
 
-        cursor.execute(f'SELECT * FROM {TABLE_NAME}')
+        cursor.execute(f"SELECT * FROM {TABLE_NAME}")
         results = cursor.fetchall()
 
         data = [[obj, date] for obj, date in results]
@@ -113,13 +110,13 @@ class DataGet:
 
         return data
 
-    def show_data_today(self):
+    def show_data_today(self) -> None:
         # Shows the data that was captured that day
 
         conn = self.connection_db
         cursor = conn.cursor()
 
-        today_str = datetime.now().strftime('%Y-%m-%d')
+        today_str = datetime.now().strftime("%Y-%m-%d")
 
         query = f"""
         SELECT * FROM {TABLE_NAME}
@@ -137,6 +134,6 @@ class DataGet:
 
         return data
 
-    def close_connection(self):
+    def close_connection(self) -> None:
         if self.connection_db.is_connected():
             self.connection_db.close()
