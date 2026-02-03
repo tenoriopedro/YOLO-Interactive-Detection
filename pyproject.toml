@@ -1,7 +1,3 @@
-# TODO: Substitua pelo nome da pasta criada dentro de src/
-#(ex: name = "variavel_para_mudar")
-# Atenção sempre a versão do python que está a usar, para a que está 
-# aqui dentro
 
 [project]
 name = "yolo_detector"
@@ -14,11 +10,20 @@ authors = [{ name = "Pedro Tenório", email = "pstsouza13@gmail.com" }]
 
 # Dependências de produção (adicione com 'uv add' ou manualmente)
 dependencies = [
-
+    "mysql-connector-python>=8.0.0",
+    "opencv-python>=4.8.0",
+    "pillow>=10.0.0",
+    "python-dotenv>=1.0.0",
+    "ultralytics>=8.0.0",
 ]
 
 [project.urls]
 # TODO: Adicione o link do repositório quando ele existir
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
 
 [project.optional-dependencies]
 # Dependências de desenvolvimento padrão
